@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ebA-vb-OmY">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <barButtonItem title="Hit" id="IZR-88-kBf">
+                                        <connections>
+                                            <action selector="HitCard:" destination="vXZ-lx-hvc" id="yNZ-Yf-JF8"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Stand" id="wPy-GA-WfI"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="BUE-E6-JKX"/>
+                                    <barButtonItem title="New Game" id="Qnm-Lv-PO1"/>
+                                </items>
+                            </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dealer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYN-mM-UGI">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="68" width="368" height="21"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="POS-0U-4eu">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="289" width="374" height="21"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="191-uD-XNd">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="qh6-tK-uEX"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="BlackJack">
+                                        <attributes>
+                                            <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="qh6-tK-uEX"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="qh6-tK-uEX"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.31629419330000003" green="0.66132783890000002" blue="0.24972918629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="ebA-vb-OmY" secondAttribute="bottom" id="0Rx-vj-5xK"/>
+                            <constraint firstItem="191-uD-XNd" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="VAP-aG-yrM"/>
+                            <constraint firstItem="ebA-vb-OmY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="VzP-Mz-agj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ebA-vb-OmY" secondAttribute="trailing" id="YPK-Qk-NJW">
+                                <variation key="widthClass=compact" constant="-16"/>
+                            </constraint>
+                            <constraint firstItem="191-uD-XNd" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="exd-PT-qR2"/>
+                            <constraint firstAttribute="trailing" secondItem="ebA-vb-OmY" secondAttribute="trailing" id="fCN-9z-3Wh"/>
+                            <constraint firstAttribute="trailing" secondItem="191-uD-XNd" secondAttribute="trailing" id="kLI-jc-86A"/>
+                            <constraint firstItem="ebA-vb-OmY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="oav-te-h6b"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="ebA-vb-OmY"/>
+                                <exclude reference="wYN-mM-UGI"/>
+                                <exclude reference="POS-0U-4eu"/>
+                                <exclude reference="191-uD-XNd"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="VAP-aG-yrM"/>
+                                <exclude reference="exd-PT-qR2"/>
+                                <exclude reference="kLI-jc-86A"/>
+                                <exclude reference="0Rx-vj-5xK"/>
+                                <exclude reference="VzP-Mz-agj"/>
+                                <exclude reference="YPK-Qk-NJW"/>
+                                <exclude reference="fCN-9z-3Wh"/>
+                                <exclude reference="oav-te-h6b"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="ebA-vb-OmY"/>
+                                <include reference="wYN-mM-UGI"/>
+                                <include reference="POS-0U-4eu"/>
+                                <include reference="191-uD-XNd"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="VAP-aG-yrM"/>
+                                <include reference="exd-PT-qR2"/>
+                                <include reference="kLI-jc-86A"/>
+                                <include reference="0Rx-vj-5xK"/>
+                                <exclude reference="VzP-Mz-agj"/>
+                                <include reference="YPK-Qk-NJW"/>
+                                <exclude reference="fCN-9z-3Wh"/>
+                                <include reference="oav-te-h6b"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="DealerLabel" destination="wYN-mM-UGI" id="J9R-pA-oK8"/>
+                        <outlet property="HitButton" destination="IZR-88-kBf" id="tv5-hR-VDb"/>
+                        <outlet property="PlayerLabel" destination="POS-0U-4eu" id="u44-4N-jNT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="163.5" y="327"/>
+        </scene>
+    </scenes>
+</document>
