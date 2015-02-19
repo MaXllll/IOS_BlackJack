@@ -19,7 +19,6 @@
         _handClosed = NO;
     }
     return (self);
-    
 }
 
 -(void) addCard:(Card *)card
@@ -39,8 +38,20 @@
 -(NSInteger) getPipValue
 {
     NSInteger aValue = 0;
+    NSInteger numberOfAces = 0;
+    
     for (Card *tCard in self.cardsInHand) {
+        if (tCard.pipValue == 11)
+            numberOfAces = numberOfAces +1;
+        
         aValue = aValue + [tCard pipValue];
+        
+    }
+    
+    while (aValue > 21 && numberOfAces>0)
+    {
+        aValue = aValue - 10;
+        numberOfAces=numberOfAces-1;
     }
     return aValue;
 }
@@ -57,6 +68,21 @@
 
 -(NSString *)description{
     return [NSString stringWithFormat:@"cards in hand : %@", self.cardsInHand];
+}
+
+-(void) setHandClosed:(BOOL)aHandClosed
+{
+    
+    if (aHandClosed == NO) {
+        for( Card *c in self.cardsInHand)
+            c.cardClosed=NO;
+    }
+    _handClosed = aHandClosed;
+}
+
+-(BOOL) handClosed
+{
+    return _handClosed;
 }
 
 

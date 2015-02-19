@@ -44,16 +44,16 @@
 -(NSString *) suitAsString{
     switch (_suit) {
         case Hearts:
-            return @"heart";
+            return @"hearts";
             break;
         case Spades:
-            return @"spade";
+            return @"spades";
             break;
         case Diamonds:
-            return @"diamond";
+            return @"diamonds";
             break;
         case Clubs:
-            return @"club";
+            return @"clubs";
             break;
         default:
             return nil;
@@ -87,9 +87,9 @@
 
 -(NSString *) filename{
     if (_cardClosed==YES)
-        return @"closed.gif";
+        return @"closed.png";
     else
-        return [NSString stringWithFormat:@"%@%02d.jpg", [self suitAsString], [self cardNumber]];
+        return [NSString stringWithFormat:@"%@%02d.png", [self suitAsString], [self cardNumber]];
 }
 
 -(NSString *) description {

@@ -13,6 +13,10 @@
 @synthesize playerHand = _playerHand;
 @synthesize dealerHand = _dealerHand;
 @synthesize deck = _deck;
+@synthesize totalPlays = _totalPlays;
+@synthesize totalTurn = _totalTurn;
+@synthesize money = _money;
+@synthesize moneyBet = _moneyBet;
 
 static BlackjackModel* blackjackModel = nil;
 
@@ -22,6 +26,10 @@ static BlackjackModel* blackjackModel = nil;
         _playerHand = [[Hand alloc] init];
         _dealerHand = [[Hand alloc] init];
         _dealerHand.handClosed = YES;
+        _totalPlays = 0;
+        _totalTurn = 0;
+        _moneyBet = 0.0f;
+        _money = 100.0f;
     }
     return (self);
 }
@@ -30,6 +38,9 @@ static BlackjackModel* blackjackModel = nil;
 {
     //deal cards
     [self playerHandDraws];
+    [self playerHandDraws];
+    
+    [self dealerHandDraws];
     [self dealerHandDraws];
 }
 
@@ -52,6 +63,89 @@ static BlackjackModel* blackjackModel = nil;
     [self willChangeValueForKey:@"playerHand"];
     [_playerHand addCard:[_deck drawCard]];
     [self didChangeValueForKey:@"playerHand"];
+    [self EndGameIfPlayerIsBust];
+}
+
+-(void)dealerStartsTurn{
+    [self willChangeValueForKey:@"dealerHand"];
+    [_dealerHand setHandClosed:NO];
+    [self didChangeValueForKey:@"dealerHand"];
+}
+
+-(void)playerStands
+{
+    [self dealerStartsTurn];
+    
+    [self dealerPlays];
+}
+
+-(void) turnEnds:(Winner) winner;
+{
+    if(winner == Player)
+    {
+        _money += _moneyBet * 1.5f;
+    }
+    else if(winner == Draw)
+    {
+        _money += _moneyBet;
+
+    }
+    _moneyBet = 0;
+    self.totalTurn = self.totalTurn+1;
+}
+
+-(void)dealerPlays
+{
+    while (_dealerHand.getPipValue < 17)
+    {
+        [self dealerHandDraws];
+        
+    }
+    
+    if (_dealerHand.getPipValue > 21)
+        [self turnEnds:Player ];
+    else if (_dealerHand.getPipValue > _playerHand.getPipValue)
+        [self turnEnds:Dealer];
+    else
+        [self turnEnds:Draw ];
+}
+
+-(void) resetGame;
+{
+    self.totalPlays += 1;
+    _moneyBet = 0.0f;
+    _money = 100.0f;
+    [self newTurn];
+}
+
+-(void) newTurn;
+{
+    _deck = nil;
+    _playerHand = nil;
+    _dealerHand = nil;
+    _deck = [[Deck alloc] init];
+    _playerHand = [[Hand alloc] init];
+    _dealerHand = [[Hand alloc] init];
+    _dealerHand.handClosed = YES;
+    [self setup];
+
+}
+
+-(void) EndGameIfPlayerIsBust
+{
+    if (_playerHand.getPipValue > 21)
+        [self turnEnds:Dealer];
+}
+
+-(void) betMoney: (float) withAmount
+{
+    _moneyBet += withAmount;
+    _money -= withAmount;
+}
+
+-(float) getAmountOfMoney
+{
+    return _money;
 }
 
 @end

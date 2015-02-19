@@ -11,6 +11,12 @@
 #import "Deck.h"
 #import "Hand.h"
 
+typedef enum {
+    Player,
+    Dealer,
+    Draw
+} Winner;
+
 @interface BlackjackModel : NSObject
 {
     Hand *dealerHand;
@@ -21,10 +27,19 @@
 @property Hand *dealerHand;
 @property Hand *playerHand;
 @property Deck *deck;
+@property int totalPlays;
+@property int totalTurn;
+@property float money;
+@property float moneyBet;
 
 -(void) setup;
 +(BlackjackModel *)getBlackjackModel;
 -(void)dealerHandDraws;
 -(void)playerHandDraws;
+-(void) playerStands;
+-(void) resetGame;
+-(void) newTurn;
+-(void) betMoney:(float) withAmount;
+-(float) getAmountOfMoney;
 
 @end
