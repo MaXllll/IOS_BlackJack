@@ -41,5 +41,7 @@ typedef enum {
 -(void) newTurn;
 -(void) betMoney:(float) withAmount;
 -(float) getAmountOfMoney;
+-(Hand*) getPlayerHand;
+-(Hand*) getDealerHand;
 
 @end

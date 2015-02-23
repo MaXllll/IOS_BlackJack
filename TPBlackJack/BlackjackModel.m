@@ -40,6 +40,10 @@ static BlackjackModel* blackjackModel = nil;
     [self playerHandDraws];
     [self playerHandDraws];
     
+    if([playerHand getPipValue] == 21){
+        [self turnEnds:Player];
+    }
+    
     [self dealerHandDraws];
     [self dealerHandDraws];
 }
@@ -83,7 +87,7 @@ static BlackjackModel* blackjackModel = nil;
 {
     if(winner == Player)
     {
-        _money += _moneyBet * 1.5f;
+        _money += _moneyBet + (_moneyBet * 1.5f);
     }
     else if(winner == Draw)
     {
@@ -146,6 +150,16 @@ static BlackjackModel* blackjackModel = nil;
 -(float) getAmountOfMoney
 {
     return _money;
+}
+
+-(Hand*) getPlayerHand;
+{
+    return _playerHand;
+}
+
+-(Hand*) getDealerHand;
+{
+    return _dealerHand;
 }
 
 @end

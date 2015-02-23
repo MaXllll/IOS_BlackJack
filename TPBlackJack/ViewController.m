@@ -38,6 +38,7 @@
     
     _allImageViews = [[NSMutableArray alloc] initWithCapacity:5];
     
+    self.coinBet.hidden = true;
     
     [[BlackjackModel getBlackjackModel]  addObserver:self forKeyPath:@"dealerHand"
                                              options:NSKeyValueObservingOptionNew context:NULL];
@@ -95,11 +96,13 @@
 {
     if ([keyPath isEqualToString:@"dealerHand"])
     {
-        [self showDealerHand: (Hand *)[object dealerHand]];
+        if(_betModeBool == false)
+            [self showDealerHand: (Hand *)[object dealerHand]];
     } else
         if ([keyPath isEqualToString:@"playerHand"])
         {
-            [self showPlayerHand: (Hand *)[object playerHand]];
+            if(_betModeBool == false)
+                [self showPlayerHand: (Hand *)[object playerHand]];
         }
         else if([keyPath isEqualToString:@"totalTurn"])
         {
@@ -162,22 +165,37 @@
 
 - (IBAction)bet:(id)sender {
     
+    NSString* title = @"";
+    
     if(sender == _coin5)
     {
         [[BlackjackModel getBlackjackModel] betMoney:5.0f];
+        title = @"5";
 
     }
     else if(sender == _coin10)
     {
         [[BlackjackModel getBlackjackModel] betMoney:10.0f];
+        title = @"10";
 
     }
     else if(sender == _coin15)
     {
         [[BlackjackModel getBlackjackModel] betMoney:15.0f];
+        title = @"15";
+
 
     }
     _moneyLabel.text = [[NSNumber numberWithFloat:[[BlackjackModel getBlackjackModel] getAmountOfMoney]] stringValue];
+    
+    [self.coinBet setTitle:title forState:UIControlStateNormal];
+    
+    Hand * dealerHand = [[BlackjackModel getBlackjackModel] getDealerHand];
+    Hand * playerHand = [[BlackjackModel getBlackjackModel] getPlayerHand];
+    
+    [self showDealerHand:dealerHand];
+    [self showPlayerHand:playerHand];
+
     [self playMode];
 
 }
@@ -206,6 +224,8 @@
 
 -(void) playMode
 {
+    _betModeBool = false;
+    
     self.HitButton.hidden = false;
     self.standButton.hidden = false;
     self.doubleButton.hidden = false;
@@ -213,10 +233,14 @@
     self.coin5.hidden = true;
     self.coin10.hidden = true;
     self.coin15.hidden = true;
+    
+    self.coinBet.hidden = false;
 }
 
 -(void) betMode
 {
+    _betModeBool = true;
+    
     self.HitButton.hidden = true;
     self.standButton.hidden = true;
     self.doubleButton.hidden = true;
@@ -224,6 +248,8 @@
     self.coin5.hidden = false;
     self.coin10.hidden = false;
     self.coin15.hidden = false;
+    
+    self.coinBet.hidden = true;
     
     float money = [[BlackjackModel getBlackjackModel] getAmountOfMoney];
     

@@ -24,6 +24,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *coin5;
 @property (weak, nonatomic) IBOutlet UIButton *coin10;
 @property (weak, nonatomic) IBOutlet UIButton *coin15;
+@property (weak, nonatomic) IBOutlet UIButton *coinBet;
+
+
+@property bool betModeBool;
 
 @property NSMutableArray *allImageViews;
 
