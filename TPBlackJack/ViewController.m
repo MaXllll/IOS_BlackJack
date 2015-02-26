@@ -46,6 +46,7 @@
                                              options:NSKeyValueObservingOptionNew context:NULL];
     [[BlackjackModel getBlackjackModel]  addObserver:self forKeyPath:@"totalTurn"
                                              options:NSKeyValueObservingOptionNew context:NULL];
+    [[BlackjackModel getBlackjackModel] addObserver:self forKeyPath:@"money" options:NSKeyValueObservingOptionNew context:NULL];
     [[BlackjackModel getBlackjackModel] setup];
 }
 
@@ -61,7 +62,6 @@
     for (int i=0; i< [hand countCards] ; i++) {
         Card *card = [hand getCardAtIndex:i];
         
-        //UIImage  *cardImage = [ UIImage imageNamed:@"heart08.jpg"];
         UIImage  *cardImage = [ UIImage imageNamed:[card filename]];
         
         UIImageView *imageView=[[UIImageView alloc] initWithImage:cardImage];
@@ -96,13 +96,20 @@
 {
     if ([keyPath isEqualToString:@"dealerHand"])
     {
-        if(_betModeBool == false)
+        if(_betModeBool == false){
             [self showDealerHand: (Hand *)[object dealerHand]];
+            [self disableButtons];
+        }
     } else
         if ([keyPath isEqualToString:@"playerHand"])
         {
-            if(_betModeBool == false)
+            if(_betModeBool == false){
                 [self showPlayerHand: (Hand *)[object playerHand]];
+                if([[BlackjackModel getBlackjackModel] playerHand].getPipValue > 21){
+                    [self disableButtons];
+                }
+            }
+            
         }
         else if([keyPath isEqualToString:@"totalTurn"])
         {
@@ -120,12 +127,22 @@
                 
             }
         }
+        else if([keyPath isEqualToString:@"money"])
+        {
+            
+            float money = [[BlackjackModel getBlackjackModel] getAmountOfMoney];
+            int moneyBet = (int)[[BlackjackModel getBlackjackModel] getAmountOfMoneyBet];
+            
+            self.moneyLabel.text = [NSString stringWithFormat:@"%.02f", money];
+            [self.coinBet setTitle:[NSString stringWithFormat:@"%d", moneyBet] forState:UIControlStateNormal];
+        }
 }
 
 - (IBAction)HitCard:(id)sender
 {
     [[BlackjackModel getBlackjackModel] playerHandDraws];
-
+    self.doubleButton.enabled = false;
+    
 }
 
 
@@ -133,7 +150,12 @@
     [[BlackjackModel getBlackjackModel] playerStands];
 }
 
-- (IBAction)ResetGame:(id)sender {
+- (IBAction)HitDouble:(id)sender {
+    [[BlackjackModel getBlackjackModel] playerDouble];
+    self.doubleButton.enabled = false;
+}
+
+-(void)resetGame{
     [_HitButton setEnabled:YES];
     [_standButton setEnabled:YES];
     
@@ -148,6 +170,7 @@
     [_resetButton setEnabled:NO];
     
     [[BlackjackModel getBlackjackModel] resetGame];
+
 }
 
 - (void) resetTurn;
@@ -157,8 +180,8 @@
         [view removeFromSuperview];
     }
     [_allImageViews removeAllObjects];
-    [[BlackjackModel getBlackjackModel] newTurn];
     [self betMode];
+    [[BlackjackModel getBlackjackModel] newTurn];
     _moneyLabel.text = [[NSNumber numberWithFloat:[[BlackjackModel getBlackjackModel] getAmountOfMoney]] stringValue];
 
 }
@@ -222,6 +245,13 @@
     return newImage;
 }
 
+-(void) disableButtons{
+    self.HitButton.enabled = false;
+    self.standButton.enabled = false;
+    self.doubleButton.enabled = false;
+
+}
+
 -(void) playMode
 {
     _betModeBool = false;
@@ -244,6 +274,9 @@
     self.HitButton.hidden = true;
     self.standButton.hidden = true;
     self.doubleButton.hidden = true;
+    self.HitButton.enabled = true;
+    self.standButton.enabled = true;
+    self.doubleButton.enabled = true;
     
     self.coin5.hidden = false;
     self.coin10.hidden = false;

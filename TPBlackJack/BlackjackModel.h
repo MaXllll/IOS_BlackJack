@@ -37,10 +37,12 @@ typedef enum {
 -(void)dealerHandDraws;
 -(void)playerHandDraws;
 -(void) playerStands;
+-(void) playerDouble;
 -(void) resetGame;
 -(void) newTurn;
 -(void) betMoney:(float) withAmount;
 -(float) getAmountOfMoney;
+-(float) getAmountOfMoneyBet;
 -(Hand*) getPlayerHand;
 -(Hand*) getDealerHand;
 

@@ -33,7 +33,7 @@
 
 - (IBAction)HitCard:(id)sender;
 - (IBAction)Stand:(id)sender;
-- (IBAction)ResetGame:(id)sender;
+- (IBAction)HitDouble:(id)sender;
 - (IBAction)bet:(id)sender;
 
 @end

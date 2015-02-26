@@ -68,6 +68,11 @@ static BlackjackModel* blackjackModel = nil;
     [_playerHand addCard:[_deck drawCard]];
     [self didChangeValueForKey:@"playerHand"];
     [self EndGameIfPlayerIsBust];
+    if(playerHand.getPipValue == 21){
+        [self dealerStartsTurn];
+        
+        [self dealerPlays];
+    }
 }
 
 -(void)dealerStartsTurn{
@@ -78,6 +83,20 @@ static BlackjackModel* blackjackModel = nil;
 
 -(void)playerStands
 {
+    [self dealerStartsTurn];
+    
+    [self dealerPlays];
+}
+
+-(void) playerDouble
+{
+    [self willChangeValueForKey:@"money"];
+    _money -= _moneyBet;
+    _moneyBet += _moneyBet;
+    [self didChangeValueForKey:@"money"];
+
+    [self playerHandDraws];
+    
     [self dealerStartsTurn];
     
     [self dealerPlays];
@@ -151,6 +170,12 @@ static BlackjackModel* blackjackModel = nil;
 {
     return _money;
 }
+
+-(float) getAmountOfMoneyBet
+{
+    return _moneyBet;
+}
+
 
 -(Hand*) getPlayerHand;
 {
